@@ -3,7 +3,9 @@ import React, { Component } from "react";
 class WindowResizer extends Component {
   state = {};
   render() {
-    return <div className="window-resizer" />;
+    return (
+      <div onMouseDown={this.props.onMouseDown} className="window-resizer" />
+    );
   }
 }
 

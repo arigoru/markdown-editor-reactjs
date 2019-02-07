@@ -2,16 +2,48 @@ body,
 html {
   margin: 0px;
   padding: 0px;
-  --theme-color-1: hsl(0, 50%, 50%);
-  --theme-color-2: hsl(60, 50%, 50%);
-  --theme-color-3: hsl(120, 50%, 50%);
-  --theme-color-4: hsl(180, 50%, 50%);
-  --theme-color-5: hsl(240, 50%, 50%);
-  --theme-color-6: hsl(300, 50%, 50%);
+
   --editor-window-width: 300px;
   --editor-window-height: 200px;
-  --window-padding: 6px;
+  --window-padding: 3px;
   --window-top: 20px;
+  --window-resizer-w: 40px;
+  --window-resizer-h: 40px;
+  --window-resizer-breaker: 75%;
+
+  /* setting main colors */
+  --theme-color-1: hsl(100, 25%, 10%);
+  --theme-color-2: hsl(120, 30%, 25%);
+  --theme-color-3: hsl(140, 35%, 40%);
+  --theme-color-4: hsl(160, 40%, 55%);
+  --theme-color-5: hsl(180, 45%, 70%);
+  --theme-color-6: hsl(200, 50%, 85%);
+  /* distributing colors */
+  --menu-background: var(--theme-color-1);
+  --menu-window-button: var(--theme-color-5);
+  --menu-window-button-h: var(--theme-color-3);
+  --menu-button-text: var(--theme-color-1);
+  --menu-button-h: var(--theme-color-3);
+  --menu-button: var(--theme-color-4);
+
+  --workspace-background: var(--theme-color-5);
+
+  --viewer-background: var(--theme-color-6);
+  --viewer-text: var(--theme-color-1);
+  --viewer-code-block: var(--theme-color-5);
+  --viewer-code-block-border: var(--theme-color-2);
+
+  --editor-background: var(--theme-color-6);
+  --editor-text: var(--theme-color-1);
+
+  --window-border: var(--theme-color-3);
+  --window-resizer-bg: var(--theme-color-1);
+
+  --top-background: var(--theme-color-2);
+  --top-button: var(--theme-color-4);
+  --top-button-h: var(--theme-color-5);
+  --top-button-text: var(--theme-color-1);
+  --top-button-text-h: var(--theme-color-1);
 }
 
 /* body, */
@@ -19,20 +51,43 @@ html {
   background: var(--theme-color-1);
   width: auto;
   height: 100vh;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 html {
   background: var(--theme-color-2);
 }
 
 .workspace-menu {
-  background: var(--theme-color-3);
+  background: var(--menu-background);
   height: 40px;
-  /* width: 100%; */
+  width: 100%;
   position: absolute;
   bottom: 0px;
   left: 0px;
   z-index: 3;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.button-menu {
+  margin: 3px;
+  background: var(--menu-button);
+  color: var(--menu-button-text);
+}
+
+.button-menu:hover {
+  background: var(--menu-button-h);
+  color: var(--menu-button-text);
+}
+
+.button-menu-window {
+  margin: 3px;
+  background: var(--menu-window-button);
+  color: var(--menu-button-text);
+}
+
+.button-menu-window:hover {
+  background: var(--menu-window-button-h);
 }
 
 #editor {
@@ -44,10 +99,13 @@ html {
   height: 100%;
   display: flex;
   flex-flow: row nowrap;
+  transition: all 1s ease-in-out;
+  -webkit-transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
 }
 
 .workspace {
-  background: var(--theme-color-6);
+  background: var(--workspace-background);
   position: relative;
   width: 100vw;
   height: 100%;
@@ -56,7 +114,7 @@ html {
 }
 
 .editor {
-  background: var(--theme-color-1);
+  background: var(--window-border);
   left: 5px;
   top: 5px;
   margin-bottom: 0px;
@@ -65,7 +123,7 @@ html {
 }
 
 .viewer {
-  background: var(--theme-color-2);
+  background: var(--window-border);
   left: 650px;
   top: 5px;
   width: 700px;
@@ -73,14 +131,20 @@ html {
 }
 #preview {
   overflow: auto;
+  background: var(--viewer-background);
+  color: var(--viewer-text);
 }
 .viewer > .window-content pre {
-  background: gray;
+  background: var(--viewer-code-block);
   border-radius: 5px;
   padding: 5px;
-  border: 2px solid red;
+  border: 2px solid var(--viewer-code-block-border);
   margin-right: 10px;
   margin-left: 10px;
+}
+#editor {
+  background: var(--editor-background);
+  color: var(--editor-text);
 }
 
 .window {
@@ -96,12 +160,24 @@ html {
 }
 
 .window-top {
-  background: var(--theme-color-3);
+  background: var(--top-background);
   height: var(--window-top);
   position: relative;
   left: 0px;
   top: 0px;
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  padding: 2px;
 }
+.window-top button {
+  color: var(--top-button-text);
+  background: var(--top-button);
+}
+.window-top button:hover {
+  color: var(--top-button-text-h);
+  background: var(--top-button-h);
+}
+
 .window-content {
   margin: var(--window-padding);
   background: var(--theme-color-4);
@@ -110,13 +186,22 @@ html {
   display: block;
 }
 .window-resizer {
-  background: var(--theme-color-5);
-  width: var(--window-padding);
-  height: var(--window-padding);
+  background: var(--window-resizer-bg);
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+
+  bottom: calc(var(--window-resizer-h) / -4);
+  right: calc(var(--window-resizer-w) / -4);
+
   width: calc(var(--window-padding) * 2);
   height: calc(var(--window-padding) * 2);
-  clip-path: polygon(0% 50%, 50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%);
+  width: var(--window-resizer-w);
+  height: var(--window-resizer-h);
+  clip-path: polygon(
+    0% var(--window-resizer-breaker),
+    var(--window-resizer-breaker) var(--window-resizer-breaker),
+    var(--window-resizer-breaker) 0%,
+    100% 0%,
+    100% 100%,
+    0% 100%
+  );
 }
