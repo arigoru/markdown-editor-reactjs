@@ -1,32 +1,122 @@
+body,
+html {
+  margin: 0px;
+  padding: 0px;
+  --theme-color-1: hsl(0, 50%, 50%);
+  --theme-color-2: hsl(60, 50%, 50%);
+  --theme-color-3: hsl(120, 50%, 50%);
+  --theme-color-4: hsl(180, 50%, 50%);
+  --theme-color-5: hsl(240, 50%, 50%);
+  --theme-color-6: hsl(300, 50%, 50%);
+  --editor-window-width: 300px;
+  --editor-window-height: 200px;
+  --window-padding: 6px;
+  --window-top: 20px;
+}
+
+/* body, */
+#root {
+  background: var(--theme-color-1);
+  width: auto;
+  height: 100vh;
+  /* overflow: hidden; */
+}
+html {
+  background: var(--theme-color-2);
+}
+
+.workspace-menu {
+  background: var(--theme-color-3);
+  height: 40px;
+  /* width: 100%; */
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 3;
+}
+
+#editor {
+  resize: none;
+}
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  display: block;
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-flow: row nowrap;
 }
 
-.App-link {
-  color: #61dafb;
+.workspace {
+  background: var(--theme-color-6);
+  position: relative;
+  width: 100vw;
+  height: 100%;
+  top: 0px;
+  left: 0px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.editor {
+  background: var(--theme-color-1);
+  left: 5px;
+  top: 5px;
+  margin-bottom: 0px;
+  width: 600px;
+  height: 500px;
+}
+
+.viewer {
+  background: var(--theme-color-2);
+  left: 650px;
+  top: 5px;
+  width: 700px;
+  height: 500px;
+}
+#preview {
+  overflow: auto;
+}
+.viewer > .window-content pre {
+  background: gray;
+  border-radius: 5px;
+  padding: 5px;
+  border: 2px solid red;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.window {
+  z-index: 1;
+  position: absolute;
+  /* width: 400px; */
+  /* height: 200px; */
+  /* background-color: var(--theme-color-4); */
+}
+
+.ontop {
+  z-index: 2 !important;
+}
+
+.window-top {
+  background: var(--theme-color-3);
+  height: var(--window-top);
+  position: relative;
+  left: 0px;
+  top: 0px;
+}
+.window-content {
+  margin: var(--window-padding);
+  background: var(--theme-color-4);
+  width: calc(100% - var(--window-padding) * 2);
+  height: calc(100% - var(--window-top) - var(--window-padding) * 2);
+  display: block;
+}
+.window-resizer {
+  background: var(--theme-color-5);
+  width: var(--window-padding);
+  height: var(--window-padding);
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: calc(var(--window-padding) * 2);
+  height: calc(var(--window-padding) * 2);
+  clip-path: polygon(0% 50%, 50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%);
 }

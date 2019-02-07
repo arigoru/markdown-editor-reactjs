@@ -1,25 +1,23 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import "./components/workspace";
+// import marked from "marked";
+// import $ from "jquery";
+import Workspace from "./components/workspace";
+import Menu from "./components/menu";
 
 class App extends Component {
+  state = {
+    workspaces: [{ id: 0 }],
+    style: { width: "100vw" }
+  };
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div style={this.state.style} className="App">
+        {this.state.workspaces.map(e => (
+          <Workspace />
+        ))}
+        <Menu style={this.state.style} />
       </div>
     );
   }
